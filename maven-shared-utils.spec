@@ -1,7 +1,7 @@
-%_javapackages_macros
+%{?_javapackages_macros:%_javapackages_macros}
 Name:           maven-shared-utils
 Version:        0.4
-Release:        2.0%{?dist}
+Release:        2.1%{?dist}
 Summary:        Maven shared utility classes
 License:        ASL 2.0
 URL:            http://maven.apache.org/shared/maven-shared-utils
