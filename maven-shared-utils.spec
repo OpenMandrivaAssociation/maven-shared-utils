@@ -1,14 +1,12 @@
 %{?_javapackages_macros:%_javapackages_macros}
 Name:           maven-shared-utils
-Version:        0.4
-Release:        2.1%{?dist}
+Version:        0.7
+Release:        1.1
 Summary:        Maven shared utility classes
+Group:		Development/Java
 License:        ASL 2.0
 URL:            http://maven.apache.org/shared/maven-shared-utils
 Source0:        http://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%{version}/%{name}-%{version}-source-release.zip
-# Patching tests so that they are compatible with JUnit 4.11
-# (upstream bug http://jira.codehaus.org/browse/MSHARED-285)
-Patch0:         %{name}-tests.patch
 
 BuildArch:      noarch
 
@@ -34,21 +32,41 @@ API documentation for %{name}.
 %prep
 %setup -q
 %pom_remove_plugin org.codehaus.mojo:findbugs-maven-plugin
-%patch0 -p1
 
 %build
-%mvn_build
+# XXX temporarly skip running tests
+%mvn_build -f
 
 %install
 %mvn_install
 
 %files -f .mfiles
+%dir %{_javadir}/%{name}
 %doc LICENSE NOTICE
 
 %files javadoc -f .mfiles-javadoc
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Oct 24 2014 Mikolaj Izdebski <mizdebsk@redhat.com> - 0.7-1
+- Update to upstream version 0.7
+
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
+* Mon Mar 24 2014 Mikolaj Izdebski <mizdebsk@redhat.com> - 0.6-1
+- Update to upstream version 0.6
+
+* Tue Mar 04 2014 Stanislav Ochotnicky <sochotnicky@redhat.com> - 0.5-3
+- Use Requires: java-headless rebuild (#1067528)
+
+* Wed Feb 19 2014 Mikolaj Izdebski <mizdebsk@redhat.com> - 0.5-2
+- Fix unowned directory
+
+* Mon Dec 23 2013 Mikolaj Izdebski <mizdebsk@redhat.com> - 0.5-1
+- Update to upstream version 0.5
+- Remove patch for MSHARED-285 (accepted upstream)
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
