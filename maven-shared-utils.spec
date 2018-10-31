@@ -1,7 +1,7 @@
 %{?_javapackages_macros:%_javapackages_macros}
 Name:           maven-shared-utils
 Version:        0.7
-Release:        1.2
+Release:        1.3
 Summary:        Maven shared utility classes
 Group:		Development/Java
 License:        ASL 2.0
