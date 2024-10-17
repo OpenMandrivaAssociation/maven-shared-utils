@@ -5,7 +5,7 @@ Release:        1.3
 Summary:        Maven shared utility classes
 Group:		Development/Java
 License:        ASL 2.0
-URL:            http://maven.apache.org/shared/maven-shared-utils
+URL:            https://maven.apache.org/shared/maven-shared-utils
 Source0:        http://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%{version}/%{name}-%{version}-source-release.zip
 
 BuildArch:      noarch
