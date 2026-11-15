@@ -1,6 +1,6 @@
 Name:		maven-shared-utils
 Version:	3.5.0
-Release:	1
+Release:	2
 Summary:	Shared utility classes for Maven
 Group:		Development/Java
 License:	ASL 2.0
@@ -30,6 +30,30 @@ Tests are skipped.
 
 %prep
 %setup -q -n maven-shared-utils-maven-shared-utils-%{version}
+
+%check -a
+mkdir -p chk
+cat > chk/SharedUtilsCheck.java << 'EOF'
+import org.apache.maven.shared.utils.StringUtils;
+
+public class SharedUtilsCheck {
+	public static void main(String[] args) {
+		String joined = StringUtils.join(new Object[] {"maven", "shared"}, "-");
+		if (!"maven-shared".equals(joined)) {
+			throw new RuntimeException(joined);
+		}
+		if (!StringUtils.equals("3.5.0", "3.5.0")) {
+			throw new RuntimeException("equals");
+		}
+		System.out.println("maven_shared_utils_ok %{version} " + joined);
+	}
+}
+EOF
+test -s target/maven-shared-utils-%{version}.jar
+javac -cp target/maven-shared-utils-%{version}.jar -d chk chk/SharedUtilsCheck.java
+java -cp chk:target/maven-shared-utils-%{version}.jar SharedUtilsCheck > chk/out.txt
+cat chk/out.txt
+grep -q '^maven_shared_utils_ok %{version} maven-shared$' chk/out.txt
 
 %files -f .mfiles
 %doc LICENSE README.md
